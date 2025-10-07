@@ -1,0 +1,14 @@
+[
+  {
+    "id": "com.businexpert.myapp",
+    "name": "Doctor Engagement Platform",
+    "version": "1.2",
+    "shortDescription": "A demo app",
+    "longDescription": "Full description of My App with features, permissions, etc.",
+    "changelog": "v1.2: Bug fixes and improvements.\nv1.1: New feature X.",
+    "icon": "/icons/myapp.png",
+    "apkUrl": "/apks/myapp_v1.2.apk",
+    "packageName": "com.businexpert.myapp",
+    "isInstalled": false
+  }
+]
