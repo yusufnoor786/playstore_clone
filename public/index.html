@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My App Store</title>
+  <style>
+    /* Simple clean styling */
+    :root { font-family: Inter, Roboto, Arial, sans-serif; color:#111; background:#f4f6fb; }
+    body{ margin:0; padding:24px; }
+    .container{ max-width:900px; margin:0 auto; }
+    header{ display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+    header img{ width:56px; height:56px; border-radius:12px; }
+    h1{ margin:0; font-size:20px; }
+    .app-list{ display:grid; gap:12px; }
+    .app{ display:flex; align-items:center; gap:14px; padding:12px; background:#fff; border-radius:10px; box-shadow:0 6px 18px rgba(21,34,56,0.06); }
+    .app img.icon{ width:64px; height:64px; border-radius:12px; object-fit:cover; }
+    .meta{ flex:1; }
+    .meta h2{ margin:0 0 6px 0; font-size:18px; }
+    .meta p{ margin:0; color:#555; font-size:13px; }
+    .actions{ display:flex; flex-direction:column; gap:8px; align-items:flex-end; }
+    .btn{ padding:8px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+    .btn.primary{ background:#0066ff; color:white; }
+    .btn.ghost{ background:transparent; color:#0066ff; border:1px solid rgba(0,102,255,0.12); }
+    .small{ font-size:12px; color:#777; }
+    .changelog{ margin-top:8px; font-size:13px; color:#444; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="brand-icon.png" alt="brand" />
+      <div>
+        <h1>My App Store</h1>
+        <div class="small">Host your APKs and let users download & install updates</div>
+      </div>
+    </header>
+
+    <div id="status" class="small">Loading apps…</div>
+
+    <div id="apps" class="app-list" style="margin-top:12px;"></div>
+  </div>
+
+<script>
+(async function(){
+  const statusEl = document.getElementById('status');
+  const appsEl = document.getElementById('apps');
+
+  function isAndroid(){
+    return /Android/i.test(navigator.userAgent);
+  }
+
+  function createAppCard(app){
+    const el = document.createElement('div');
+    el.className = 'app';
+
+    const icon = document.createElement('img');
+    icon.className = 'icon';
+    icon.src = app.icon || 'default-app-icon.png';
+    icon.alt = app.name;
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const title = document.createElement('h2');
+    title.textContent = app.name + ' ';
+    const version = document.createElement('span');
+    version.className = 'small';
+    version.textContent = 'v' + app.version;
+    title.appendChild(version);
+
+    const desc = document.createElement('p');
+    desc.textContent = app.shortDescription || '';
+
+    const changelog = document.createElement('div');
+    changelog.className = 'changelog';
+    changelog.textContent = app.changelog || '';
+
+    meta.appendChild(title);
+    meta.appendChild(desc);
+    if (app.changelog) meta.appendChild(changelog);
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const btn = document.createElement('button');
+    btn.className = 'btn primary';
+    btn.textContent = app.isInstalled ? 'Update' : 'Download';
+    btn.onclick = () => startDownload(app);
+    actions.appendChild(btn);
+
+    // Optional: open details
+    const info = document.createElement('button');
+    info.className = 'btn ghost';
+    info.textContent = 'Details';
+    info.onclick = () => alert(app.name + '\\n\\n' + (app.longDescription || app.shortDescription || 'No details.'));
+    actions.appendChild(info);
+
+    el.appendChild(icon);
+    el.appendChild(meta);
+    el.appendChild(actions);
+
+    return el;
+  }
+
+  async function startDownload(app){
+    const apkUrl = app.apkUrl;
+    if (!apkUrl) { alert('APK not available'); return; }
+
+    if (!isAndroid()) {
+      // On non-Android devices open the APK link so user can download manually
+      window.open(apkUrl, '_blank');
+      return;
+    }
+
+    // On Android: navigate to the APK URL. Browser will start download and then user should tap the download completion notification to Install.
+    // We try to open the URL in the same tab to give the browser maximum chance to prompt install.
+    try {
+      statusEl.textContent = 'Starting download... (check your Downloads / notifications)...';
+      // Force navigation so Chrome/Edge/Firefox will treat it as a download navigation
+      window.location.href = apkUrl;
+      // Note: we cannot programmatically auto-install due to platform security.
+    } catch(e){
+      window.open(apkUrl, '_blank');
+    }
+  }
+
+  try {
+    const res = await fetch('/api/apps');
+    if (!res.ok) throw new Error('Failed to load apps');
+    const apps = await res.json();
+    appsEl.innerHTML = '';
+    apps.forEach(app => appsEl.appendChild(createAppCard(app)));
+    statusEl.textContent = 'Ready';
+  } catch (err){
+    console.error(err);
+    statusEl.textContent = 'Failed to load apps: ' + (err.message || err);
+  }
+})();
+</script>
+</body>
+</html>
