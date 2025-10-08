@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APK Distribution Center</title>
+    <title>My App - Download</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
     <style>
         * {
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -30,24 +30,22 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
+            text-align: center;
         }
 
         .logo {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 15px;
+            margin-bottom: 10px;
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -55,142 +53,43 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 32px;
             color: #1a202c;
         }
 
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-success {
-            background: #48bb78;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #38a169;
-        }
-
-        .alert {
-            background: #fef5e7;
-            border-left: 4px solid #f39c12;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .alert-title {
-            font-weight: 600;
-            color: #d68910;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .alert-text {
-            color: #876400;
-            line-height: 1.6;
+        .tagline {
+            color: #718096;
+            margin-top: 5px;
         }
 
         .card {
             background: white;
             border-radius: 20px;
-            padding: 30px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
             margin-bottom: 30px;
-        }
-
-        .upload-form {
-            display: none;
-        }
-
-        .upload-form.active {
-            display: block;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        textarea.form-input {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .app-display {
-            display: none;
-        }
-
-        .app-display.active {
-            display: block;
         }
 
         .app-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px;
-            border-radius: 20px 20px 0 0;
+            padding: 50px 40px;
             color: white;
             display: flex;
             gap: 30px;
-            align-items: flex-start;
+            align-items: center;
         }
 
         .app-icon {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: white;
-            border-radius: 20px;
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .app-icon img {
@@ -199,19 +98,22 @@
             object-fit: cover;
         }
 
-        .app-icon svg {
-            color: #667eea;
-        }
-
         .app-info h2 {
-            font-size: 32px;
+            font-size: 36px;
             margin-bottom: 10px;
         }
 
         .app-meta {
             display: flex;
             gap: 20px;
-            opacity: 0.9;
+            opacity: 0.95;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .app-body {
@@ -220,25 +122,32 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .stat-card {
-            background: #f7fafc;
-            padding: 20px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
 
         .stat-label {
             color: #718096;
             font-size: 14px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
             color: #2d3748;
         }
@@ -247,53 +156,105 @@
             color: #48bb78;
         }
 
+        .section {
+            margin-bottom: 40px;
+        }
+
         .section-title {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight: 700;
             color: #2d3748;
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .description {
             color: #4a5568;
             line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: #48bb78;
+            flex-shrink: 0;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        .download-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .download-section h3 {
             color: white;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .download-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 25px;
+        }
+
+        .download-btn {
+            background: white;
+            color: #667eea;
+            padding: 18px 40px;
             border: none;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-decoration: none;
         }
 
         .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
         .info-box {
             background: #ebf8ff;
-            border: 1px solid #90cdf4;
-            padding: 20px;
+            border-left: 4px solid #4299e1;
+            padding: 25px;
             border-radius: 12px;
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .info-box-title {
-            font-weight: 600;
+            font-weight: 700;
             color: #2c5282;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .info-box ol {
@@ -302,67 +263,74 @@
         }
 
         .info-box li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.6;
         }
 
-        .security-box {
-            background: #f0fff4;
-            border: 1px solid #9ae6b4;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        .security-box-title {
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 600;
-            color: #22543d;
-            margin-bottom: 5px;
         }
 
-        .security-box p {
-            color: #22543d;
+        .new-badge {
+            background: #48bb78;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 10px;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
+        .warning-box {
+            background: #fef5e7;
+            border-left: 4px solid #f39c12;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
-        .empty-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            opacity: 0.3;
+        .warning-box-title {
+            font-weight: 700;
+            color: #d68910;
+            margin-bottom: 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .empty-state h3 {
-            font-size: 28px;
-            color: #2d3748;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: #718096;
-            margin-bottom: 30px;
+        .warning-box p {
+            color: #876400;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
             .app-header {
                 flex-direction: column;
                 text-align: center;
+                padding: 30px 20px;
             }
 
             .stats {
                 grid-template-columns: 1fr;
             }
-        }
 
-        .hidden {
-            display: none !important;
+            .app-info h2 {
+                font-size: 28px;
+            }
+
+            .app-body {
+                padding: 20px;
+            }
+
+            .download-section {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
@@ -372,215 +340,169 @@
         <div class="header">
             <div class="logo">
                 <div class="logo-icon">
-                    <i data-lucide="smartphone" style="width: 30px; height: 30px;"></i>
+                    <i data-lucide="smartphone" style="width: 35px; height: 35px;"></i>
                 </div>
-                <h1>APK Distribution Center</h1>
-            </div>
-            <button class="btn btn-primary" onclick="toggleUploadForm()">
-                <i data-lucide="upload" style="width: 20px; height: 20px;"></i>
-                Upload APK
-            </button>
-        </div>
-
-        <!-- Alert -->
-        <div class="alert">
-            <div class="alert-title">⚠️ Auto-Install Limitations</div>
-            <div class="alert-text">
-                Android security requires manual user confirmation for APK installations. Auto-install is only possible with:
-                <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Root access or system-level permissions</li>
-                    <li>Enterprise MDM (Mobile Device Management) solutions</li>
-                    <li>Apps signed with platform keys (system apps)</li>
-                </ul>
+                <div>
+                    <!-- ✏️ EDIT: Your App Store Name -->
+                    <h1>My App Distribution</h1>
+                    <p class="tagline">Download the latest version</p>
+                </div>
             </div>
         </div>
 
-        <!-- Upload Form -->
-        <div class="card upload-form" id="uploadForm">
-            <h2 style="margin-bottom: 25px; color: #2d3748;">Upload New Version</h2>
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label">App Name</label>
-                    <input type="text" class="form-input" id="appName" placeholder="My Awesome App">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Version</label>
-                    <input type="text" class="form-input" id="appVersion" placeholder="1.0.0">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">App Icon</label>
-                <input type="file" class="form-input" id="appIcon" accept="image/*" onchange="handleIconUpload(event)">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea class="form-input" id="appDescription" placeholder="Describe your app..."></textarea>
-            </div>
-            <div class="form-group">
-                <label class="form-label">APK File</label>
-                <input type="file" class="form-input" id="apkFile" accept=".apk" onchange="handleAPKUpload(event)">
-            </div>
-            <button class="btn btn-success" style="width: 100%; padding: 15px; font-size: 18px;" onclick="publishAPK()">
-                Publish APK
-            </button>
-        </div>
-
-        <!-- App Display -->
-        <div class="card app-display" id="appDisplay" style="padding: 0; overflow: hidden;">
+        <!-- App Display Card -->
+        <div class="card">
             <div class="app-header">
-                <div class="app-icon" id="displayIcon">
-                    <i data-lucide="smartphone" style="width: 50px; height: 50px;"></i>
+                <div class="app-icon">
+                    <!-- ✏️ EDIT: Replace with your app icon URL or path -->
+                    <img src="https://via.placeholder.com/120/667eea/ffffff?text=APP" alt="App Icon">
+                    <!-- Example: <img src="app-icon.png" alt="App Icon"> -->
                 </div>
                 <div class="app-info">
-                    <h2 id="displayName">App Name</h2>
+                    <!-- ✏️ EDIT: Your App Name -->
+                    <h2>My Awesome App <span class="new-badge">NEW</span></h2>
                     <div class="app-meta">
-                        <span>Version <span id="displayVersion">1.0.0</span></span>
-                        <span>Updated <span id="displayDate">Today</span></span>
+                        <div class="meta-item">
+                            <i data-lucide="package" style="width: 18px; height: 18px;"></i>
+                            <!-- ✏️ EDIT: Your App Version -->
+                            <span class="version-badge">Version 2.5.0</span>
+                        </div>
+                        <div class="meta-item">
+                            <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                            <!-- ✏️ EDIT: Last Update Date -->
+                            <span>Updated Oct 8, 2025</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="app-body">
+                <!-- Stats Section -->
                 <div class="stats">
                     <div class="stat-card">
                         <div class="stat-label">Size</div>
-                        <div class="stat-value" id="displaySize">0 MB</div>
+                        <!-- ✏️ EDIT: APK File Size -->
+                        <div class="stat-value">45.2 MB</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-label">Downloads</div>
-                        <div class="stat-value">0</div>
+                        <div class="stat-label">Version</div>
+                        <!-- ✏️ EDIT: Version Number -->
+                        <div class="stat-value">2.5.0</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-label">Status</div>
-                        <div class="stat-value success">Available</div>
+                        <div class="stat-value success">Active</div>
                     </div>
                 </div>
 
-                <div class="section-title">Description</div>
-                <div class="description" id="displayDescription">
-                    App description will appear here...
+                <!-- Description Section -->
+                <div class="section">
+                    <div class="section-title">
+                        <i data-lucide="file-text" style="width: 24px; height: 24px;"></i>
+                        About This App
+                    </div>
+                    <!-- ✏️ EDIT: Your App Description -->
+                    <p class="description">
+                        This is the latest version of My Awesome App with exciting new features and improvements. 
+                        Experience better performance, new design, and enhanced functionality. Download now to get 
+                        the best experience on your Android device.
+                    </p>
                 </div>
 
-                <button class="download-btn" onclick="downloadAPK()">
-                    <i data-lucide="download" style="width: 24px; height: 24px;"></i>
-                    Download APK
-                </button>
+                <!-- What's New Section -->
+                <div class="section">
+                    <div class="section-title">
+                        <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
+                        What's New in v2.5.0
+                    </div>
+                    <!-- ✏️ EDIT: List your new features -->
+                    <ul class="feature-list">
+                        <li>
+                            <i data-lucide="check-circle" class="feature-icon" style="width: 20px; height: 20px;"></i>
+                            <span>New modern user interface with dark mode support</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle" class="feature-icon" style="width: 20px; height: 20px;"></i>
+                            <span>Improved performance and faster loading times</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle" class="feature-icon" style="width: 20px; height: 20px;"></i>
+                            <span>Bug fixes and stability improvements</span>
+                        </li>
+                        <li>
+                            <i data-lucide="check-circle" class="feature-icon" style="width: 20px; height: 20px;"></i>
+                            <span>Added new features based on user feedback</span>
+                        </li>
+                    </ul>
+                </div>
 
+                <!-- Download Section -->
+                <div class="download-section">
+                    <h3>Ready to Update?</h3>
+                    <p>Download the latest version now and enjoy new features!</p>
+                    <!-- ✏️ EDIT: Replace 'your-app.apk' with your actual APK filename -->
+                    <a href="your-app.apk" download class="download-btn">
+                        <i data-lucide="download" style="width: 24px; height: 24px;"></i>
+                        Download APK (45.2 MB)
+                    </a>
+                </div>
+
+                <!-- Important Note -->
+                <div class="warning-box">
+                    <div class="warning-box-title">
+                        <i data-lucide="alert-triangle" style="width: 20px; height: 20px;"></i>
+                        Important: Manual Installation Required
+                    </div>
+                    <p>
+                        Due to Android security policies, APK files require manual installation. Auto-install is not possible 
+                        without system-level permissions. Please follow the installation steps below.
+                    </p>
+                </div>
+
+                <!-- Installation Instructions -->
                 <div class="info-box">
-                    <div class="info-box-title">📱 Installation Steps:</div>
+                    <div class="info-box-title">
+                        <i data-lucide="info" style="width: 20px; height: 20px;"></i>
+                        How to Install
+                    </div>
                     <ol>
-                        <li>Download the APK file</li>
-                        <li>Enable "Install from Unknown Sources" in Settings</li>
-                        <li>Open the downloaded APK file</li>
+                        <li>Click the "Download APK" button above</li>
+                        <li>Open Settings → Security → Enable "Install from Unknown Sources" or "Install Unknown Apps"</li>
+                        <li>Open the downloaded APK file from your notifications or Downloads folder</li>
                         <li>Tap "Install" when prompted</li>
-                        <li>Wait for installation to complete</li>
+                        <li>Wait for installation to complete and tap "Open"</li>
                     </ol>
                 </div>
 
-                <div class="security-box">
-                    <div class="security-box-title">🛡️ Security Note:</div>
-                    <p>Always verify APK sources before installation. This platform allows direct APK distribution for your app updates.</p>
+                <!-- Requirements -->
+                <div class="section">
+                    <div class="section-title">
+                        <i data-lucide="smartphone" style="width: 24px; height: 24px;"></i>
+                        Requirements
+                    </div>
+                    <!-- ✏️ EDIT: Your App Requirements -->
+                    <ul class="feature-list">
+                        <li>
+                            <i data-lucide="info" style="width: 20px; height: 20px; color: #667eea;"></i>
+                            <span>Android 6.0 or higher</span>
+                        </li>
+                        <li>
+                            <i data-lucide="info" style="width: 20px; height: 20px; color: #667eea;"></i>
+                            <span>50 MB free storage space</span>
+                        </li>
+                        <li>
+                            <i data-lucide="info" style="width: 20px; height: 20px; color: #667eea;"></i>
+                            <span>Internet connection for initial setup</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-
-        <!-- Empty State -->
-        <div class="card empty-state" id="emptyState">
-            <div class="empty-icon">
-                <i data-lucide="smartphone" style="width: 100%; height: 100%;"></i>
-            </div>
-            <h3>No APK Uploaded Yet</h3>
-            <p>Upload your first APK to start distributing your app</p>
-            <button class="btn btn-primary" style="font-size: 18px; padding: 15px 30px;" onclick="toggleUploadForm()">
-                <i data-lucide="upload" style="width: 20px; height: 20px;"></i>
-                Upload APK
-            </button>
         </div>
     </div>
 
     <script>
-        let uploadedAPK = null;
-        let appIcon = null;
-
         // Initialize Lucide icons
         lucide.createIcons();
-
-        function toggleUploadForm() {
-            const form = document.getElementById('uploadForm');
-            const empty = document.getElementById('emptyState');
-            
-            if (form.classList.contains('active')) {
-                form.classList.remove('active');
-            } else {
-                form.classList.add('active');
-                empty.classList.add('hidden');
-            }
-        }
-
-        function handleIconUpload(event) {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    appIcon = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleAPKUpload(event) {
-            const file = event.target.files[0];
-            if (file && file.name.endsWith('.apk')) {
-                uploadedAPK = {
-                    file: file,
-                    url: URL.createObjectURL(file),
-                    name: file.name,
-                    size: file.size
-                };
-            }
-        }
-
-        function publishAPK() {
-            const name = document.getElementById('appName').value;
-            const version = document.getElementById('appVersion').value;
-            const description = document.getElementById('appDescription').value;
-
-            if (!name || !version || !description || !uploadedAPK) {
-                alert('Please fill in all fields and upload an APK file!');
-                return;
-            }
-
-            // Update display
-            document.getElementById('displayName').textContent = name;
-            document.getElementById('displayVersion').textContent = version;
-            document.getElementById('displayDescription').textContent = description;
-            document.getElementById('displaySize').textContent = (uploadedAPK.size / (1024 * 1024)).toFixed(2) + ' MB';
-            document.getElementById('displayDate').textContent = new Date().toLocaleDateString();
-
-            // Update icon
-            const iconContainer = document.getElementById('displayIcon');
-            if (appIcon) {
-                iconContainer.innerHTML = `<img src="${appIcon}" alt="App Icon">`;
-            }
-
-            // Show app display, hide form and empty state
-            document.getElementById('uploadForm').classList.remove('active');
-            document.getElementById('appDisplay').classList.add('active');
-            document.getElementById('emptyState').classList.add('hidden');
-
-            // Reinitialize icons
-            lucide.createIcons();
-        }
-
-        function downloadAPK() {
-            if (uploadedAPK) {
-                const a = document.createElement('a');
-                a.href = uploadedAPK.url;
-                a.download = uploadedAPK.name;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
-        }
     </script>
 </body>
 </html>
